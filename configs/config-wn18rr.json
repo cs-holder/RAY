@@ -1,0 +1,82 @@
+{
+  "graph": {
+    "train_width": 256,
+    "add_self_loop": true
+  },
+  "model": {
+    "message": false,
+    "entity_embed": true,
+    "message_func": "rnn",
+    "apply_red_aggr": true,
+    "apply_final_red_aggr": false,
+    "apply_edge_weight": true,
+    "apply_global_info": false,
+    "max_steps": 5,
+    "max_nodes": 1024,
+    "max_neighbors": 10,
+    "agent_num": 5,
+    "embed_size": 100,
+    "hidden_size": 200,
+    "state_size": 100,
+    "topk": [16, 64, 256, 1024],
+    "reward_policy": "direct",
+    "baseline_lambda": 0.05,
+    "dropout": 0.02,
+    "fuse_dist": "mult",
+    "eval_mode": "mult",
+    "eps": 1e-6,
+    "gcn_params": {
+      "gcn_layer": 1,
+      "gcn_dim": 100,
+      "hid_drop": 0.3,
+      "feat_drop": 0.2,
+      "gcn_aggr_act": "tanh",
+      "gcn_pool_fn": "mean",
+      "gcn_opn": "corr",
+      "bias": true,
+      "loop": true
+    }
+  },
+  "optimizer": {
+    "name": "Adam",
+    "embed": {
+      "lr": 0.001
+    },
+    "summary": {
+      "lr": 1e-5
+    },
+    "agent": {
+      "lr": 1e-3
+    },
+    "config": {
+      "weight_decay": 1e-4
+    }
+  },
+  "pretrain_optimizer": {
+    "lr": 0.0001
+  },
+  "trainer": {
+    "weighted_sample": true,
+    "ignore_onehop": false,
+    "meta_learn": false,
+    "sample_weight": 1.0,
+    "rollout_num": 1,
+    "test_rollout_num": 1,
+    "evaluate_inverse": true
+  },
+  "train": {
+    "validate_metric": "MRR",
+    "batch_size": 66,
+    "test_batch_size": 12,
+    "log_interval": 400,
+    "evaluate_interval": 180,
+    "start_eval_step": 10000,
+    "max_steps": 30000,
+    "entropy_beta": 0.0,
+    "max_wait_step": 2700,
+    "agent_entropy_beta": 0.05
+  },
+  "pretrain": {
+    "batch_size": 64
+  }
+}
